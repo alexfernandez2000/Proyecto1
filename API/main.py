@@ -1,15 +1,17 @@
 import uuid
 from flask import Flask, jsonify, render_template, request, session
 from routes.loggin_request import loggin_request_bluebrint
+import os
+from config import SECRET_KEY
 
 app = Flask(__name__)
 app.register_blueprint(loggin_request_bluebrint)
-app.config["SECRET_KEY"] = "4145a376-19b7-40db-8e6b-2f124b700376"
+app.config["SECRET_KEY"] = SECRET_KEY
 
 
 @app.route("/")
 def root():
-    print(session)
+    print(app.config["SECRET_KEY"])
     if not session.get("logged_in"):
         return render_template("login.html")
     return "Logged in successfullyy!"
