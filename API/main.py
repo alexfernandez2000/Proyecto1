@@ -12,7 +12,7 @@ def root():
     print(session)
     if not session.get("logged_in"):
         return render_template("login.html")
-    return "Logged in successfully!"
+    return "Logged in successfullyy!"
 
 
 @app.route("/user/<user_id>", methods=["GET"])
