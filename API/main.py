@@ -11,10 +11,7 @@ app.config["SECRET_KEY"] = SECRET_KEY
 
 @app.route("/")
 def root():
-    print(app.config["SECRET_KEY"])
-    if not session.get("logged_in"):
-        return render_template("login.html")
-    return "Logged in successfullyy!"
+    return render_template("login.html")
 
 
 @app.route("/user/<user_id>", methods=["GET"])
@@ -34,4 +31,4 @@ def add_user():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

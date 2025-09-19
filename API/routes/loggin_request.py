@@ -28,7 +28,6 @@ def auth():
 @loggin_request_bluebrint.route("/login", methods=["POST"])
 def login():
     if request.form["username"] and request.form["password"] == "shiro":
-        session["logged_in"] = True
         token = jwt.encode(
             {
                 "user": request.form["username"],
@@ -36,7 +35,11 @@ def login():
             },
             current_app.config["SECRET_KEY"],
         )
-        return jsonify({"token": token})
+        response = make_response(jsonify({"message": "Login Exitoso"}))
+        response.set_cookie(
+            "access_token", token, httponly=True, secure=True, samesite="Strict"
+        )
+        return response
     else:
         return make_response(
             "Could not verify!",
